@@ -42,10 +42,25 @@ const config = {
           {
             loader: 'html-loader',
             options: {
-              attrs: ['img:src', 'link:href'],
+              attrs: ['img:src', 'link:href', 'script:src'],
               root: path.resolve(__dirname, 'static')
             }
           }
+        ],
+        exclude: /node_modules/
+      },
+      {
+        // Load scripts files into its own files
+        test: /\.raw.js$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]'
+            }
+          },
+          { loader: 'extract-loader' },
+          { loader: 'script-loader' }
         ],
         exclude: /node_modules/
       },
